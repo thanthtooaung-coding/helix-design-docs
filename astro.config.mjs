@@ -26,7 +26,7 @@ function helixMermaid() {
 // If you later move to a custom domain at the root, set base to '/' and drop
 // the trailing-slash handling below.
 // ---------------------------------------------------------------------------
-const GITHUB_USER = 'your-username';
+const GITHUB_USER = 'thanthtooaung-coding';
 const REPO_NAME = 'helix-design';
 
 export default defineConfig({
