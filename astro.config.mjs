@@ -27,7 +27,7 @@ function helixMermaid() {
 // the trailing-slash handling below.
 // ---------------------------------------------------------------------------
 const GITHUB_USER = 'thanthtooaung-coding';
-const REPO_NAME = 'helix-design';
+const REPO_NAME = 'helix-design-docs';
 
 export default defineConfig({
   site: `https://${GITHUB_USER}.github.io`,
