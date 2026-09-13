@@ -1,0 +1,387 @@
+/* ===========================================================================
+   Helix — Starlight theme overrides
+   "Oxide on slate": bare-metal rust as the accent, cool blue-grey neutrals.
+   Type: IBM Plex Sans (UI + headings), Source Serif 4 (prose), IBM Plex Mono.
+   =========================================================================== */
+
+/* --------------------------------------------------------------- dark (default) */
+:root {
+  --helix-oxide: #e0764f;
+  --helix-oxide-ink: #f0987a;
+  --helix-oxide-wash: #2a1a14;
+  --helix-steel: #7fa6c9;
+  --helix-steel-wash: #17222d;
+  --helix-prose: #bfc7d2;
+  --helix-figure-bg: #151a21;
+
+  --sl-color-accent-low: #3a1c10;
+  --sl-color-accent: #b8512e;
+  --sl-color-accent-high: #f0987a;
+
+  --sl-color-white: #f4f7fa;
+  --sl-color-gray-1: #e7ebf0;
+  --sl-color-gray-2: #bfc7d2;
+  --sl-color-gray-3: #98a1ae;
+  --sl-color-gray-4: #6c7684;
+  --sl-color-gray-5: #39414e;
+  --sl-color-gray-6: #262e39;
+  --sl-color-gray-7: #1a2029;
+  --sl-color-black: #0e1116;
+
+  --sl-color-bg: #0e1116;
+  --sl-color-bg-nav: #151a21;
+  --sl-color-bg-sidebar: #11151b;
+  --sl-color-bg-inline-code: #1a2029;
+  --sl-color-hairline: #202833;
+  --sl-color-hairline-light: #262e39;
+  --sl-color-hairline-shade: #1a2029;
+  --sl-color-text-accent: var(--helix-oxide-ink);
+
+  --sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --sl-content-width: 54rem;
+  --sl-sidebar-width: 19.5rem;
+  --sl-text-code: 0.82rem;
+}
+
+/* --------------------------------------------------------------- light */
+:root[data-theme='light'] {
+  --helix-oxide: #ac4225;
+  --helix-oxide-ink: #8e3620;
+  --helix-oxide-wash: #f6e9e4;
+  --helix-steel: #3c5a78;
+  --helix-steel-wash: #e7edf3;
+  --helix-prose: #39414e;
+  --helix-figure-bg: #ffffff;
+
+  --sl-color-accent-low: #f6e9e4;
+  --sl-color-accent: #ac4225;
+  --sl-color-accent-high: #8e3620;
+
+  --sl-color-white: #14171d;
+  --sl-color-gray-1: #1d222a;
+  --sl-color-gray-2: #39414e;
+  --sl-color-gray-3: #5c6573;
+  --sl-color-gray-4: #8a93a1;
+  --sl-color-gray-5: #c3cad4;
+  --sl-color-gray-6: #e4e8ed;
+  --sl-color-gray-7: #f0f2f5;
+  --sl-color-black: #ffffff;
+
+  --sl-color-bg: #eff1f4;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-bg-inline-code: #e8ebef;
+  --sl-color-hairline: #dde1e7;
+  --sl-color-hairline-light: #d6dbe2;
+  --sl-color-hairline-shade: #e4e8ed;
+  --sl-color-text-accent: var(--helix-oxide-ink);
+}
+
+/* --------------------------------------------------------------- chrome */
+.site-title {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* Sidebar: monospaced section numerals, tighter rhythm. */
+.sidebar-content a {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  padding-block: 0.3rem;
+}
+.sidebar-content summary,
+.sidebar-content .large {
+  font-family: var(--sl-font-mono);
+  font-size: 0.66rem !important;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--sl-color-gray-3);
+  font-weight: 500;
+}
+.sidebar-content a[aria-current='page'] {
+  background: var(--helix-oxide-wash);
+  color: var(--helix-oxide-ink);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------- headings */
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+.sl-markdown-content h2 {
+  font-size: 1.42rem;
+  margin-top: 3.2rem;
+  padding-top: 1.3rem;
+  border-top: 2px solid var(--sl-color-gray-2);
+}
+/* The first section heading sits right under the page title; no rule needed. */
+.sl-markdown-content > h2:first-child {
+  margin-top: 0.4rem;
+  padding-top: 0;
+  border-top: 0;
+}
+.sl-markdown-content h3 {
+  font-size: 1.08rem;
+  margin-top: 2rem;
+}
+.sl-markdown-content h4 {
+  font-size: 0.92rem;
+  margin-top: 1.5rem;
+}
+.sl-markdown-content h4::before {
+  content: '\25B8\A0';
+  color: var(--helix-oxide);
+}
+/* The page H1 carries the section number from the sidebar label. */
+.content-panel h1 {
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+/* --------------------------------------------------------------- prose */
+.sl-markdown-content p,
+.sl-markdown-content blockquote p {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  line-height: 1.68;
+  color: var(--helix-prose);
+  max-width: 70ch;
+}
+.sl-markdown-content p strong {
+  color: var(--sl-color-white);
+  font-weight: 600;
+}
+.sl-markdown-content li {
+  line-height: 1.6;
+}
+.sl-markdown-content ol > li::marker {
+  font-family: var(--sl-font-mono);
+  font-size: 0.85em;
+  color: var(--helix-oxide);
+}
+.sl-markdown-content ul > li::marker {
+  color: var(--sl-color-gray-4);
+}
+.sl-markdown-content blockquote {
+  border-inline-start-color: var(--helix-oxide);
+}
+
+/* --------------------------------------------------------------- tables */
+.sl-markdown-content table {
+  font-size: 0.83rem;
+  line-height: 1.5;
+  border-collapse: collapse;
+  width: 100%;
+}
+.sl-markdown-content th {
+  font-family: var(--sl-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--sl-color-white);
+  background: var(--sl-color-gray-7);
+  white-space: nowrap;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+.sl-markdown-content td {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--sl-color-hairline-shade);
+  vertical-align: top;
+  color: var(--helix-prose);
+}
+.sl-markdown-content tbody tr:last-child td {
+  border-bottom: 0;
+}
+.sl-markdown-content td:first-child,
+.sl-markdown-content td strong {
+  color: var(--sl-color-white);
+}
+/* Starlight already wraps tables in an overflow container; frame it. */
+.sl-markdown-content .sl-markdown-content > table,
+.sl-markdown-content table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------- code */
+.sl-markdown-content :not(pre) > code {
+  font-size: 0.83em;
+  color: var(--helix-oxide-ink);
+  border: 1px solid var(--sl-color-hairline-shade);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+
+/* --------------------------------------------------------------- maturity chips
+   MVP -> V1 -> SCALE is a real build sequence, so the chips read as a
+   progression: filled, outlined, then quiet. */
+.mat {
+  display: inline-block;
+  font-family: var(--sl-font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.12em 0.45em;
+  border-radius: 2px;
+  vertical-align: 0.08em;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+.mat-mvp {
+  background: var(--helix-oxide);
+  color: #fff;
+}
+:root[data-theme='light'] .mat-mvp {
+  color: #fff;
+}
+.mat-v1 {
+  background: transparent;
+  color: var(--helix-oxide-ink);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.mat-scale {
+  background: var(--helix-steel-wash);
+  color: var(--helix-steel);
+  box-shadow: inset 0 0 0 1px var(--sl-color-hairline-light);
+}
+
+/* --------------------------------------------------------------- cross references */
+.sl-markdown-content a[href*='#'],
+.sl-markdown-content a[href^='../'] {
+  text-underline-offset: 2px;
+}
+.sl-markdown-content a[href^='../']:not(.not-content *) {
+  color: var(--helix-steel);
+  text-decoration-style: dotted;
+  font-variant-numeric: tabular-nums;
+}
+.sl-markdown-content a[href^='../']:hover {
+  text-decoration-style: solid;
+}
+
+/* --------------------------------------------------------------- mermaid */
+.mermaid-figure {
+  margin: 1.6rem 0;
+  padding: 1.1rem 0.9rem;
+  background: var(--helix-figure-bg);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 5px;
+  overflow-x: auto;
+}
+pre.mermaid {
+  margin: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+/* Before hydration, show the source as quiet monospace rather than a flash. */
+pre.mermaid:not([data-rendered]) {
+  font-family: var(--sl-font-mono);
+  font-size: 0.72rem;
+  color: var(--sl-color-gray-4);
+  white-space: pre;
+  display: block;
+  max-height: 14rem;
+  overflow: hidden;
+}
+pre.mermaid[data-error] {
+  color: var(--helix-oxide-ink);
+  max-height: none;
+}
+pre.mermaid svg {
+  max-width: none;
+  height: auto;
+}
+@media (max-width: 50rem) {
+  .mermaid-figure {
+    padding: 0.8rem 0.6rem;
+  }
+}
+
+/* --------------------------------------------------------------- landing page */
+.hero-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 1px;
+  background: var(--sl-color-hairline-light);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+.hero-facts > div {
+  background: var(--sl-color-bg-nav);
+  padding: 0.8rem 0.9rem;
+}
+.hero-facts dt {
+  font-family: var(--sl-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sl-color-gray-3);
+  margin: 0;
+}
+.hero-facts dd {
+  margin: 0.2rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--sl-color-white);
+}
+.hero-facts dd small {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--sl-color-gray-3);
+  letter-spacing: 0;
+}
+.pipeline-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0;
+  align-items: center;
+  font-family: var(--sl-font-mono);
+  font-size: 0.72rem;
+  color: var(--sl-color-gray-3);
+  margin: 1.4rem 0;
+}
+.pipeline-chain i {
+  font-style: normal;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 2px;
+  background: var(--sl-color-bg-nav);
+  white-space: nowrap;
+}
+.pipeline-chain u {
+  text-decoration: none;
+  padding: 0 0.45rem;
+  color: var(--helix-oxide);
+}
+
+/* --------------------------------------------------------------- small screens */
+@media (max-width: 50rem) {
+  .sl-markdown-content p {
+    font-size: 1rem;
+  }
+  .sl-markdown-content h2 {
+    font-size: 1.25rem;
+    margin-top: 2.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

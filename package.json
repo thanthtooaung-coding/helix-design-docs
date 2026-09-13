@@ -1,0 +1,23 @@
+{
+  "name": "helix-design-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "content": "python3 scripts/split.py && node scripts/xrefs.mjs && python3 scripts/transform.py"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.30.3",
+    "astro": "^5.1.1",
+    "mermaid": "^11.4.1",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "github-slugger": "^2.0.0"
+  }
+}

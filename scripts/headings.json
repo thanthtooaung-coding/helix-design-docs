@@ -1,0 +1,1457 @@
+{
+ "pages": [
+  {
+   "num": 0,
+   "slug": "00-how-to-read-this-document",
+   "subs": [
+    {
+     "text": "0.1 What this document is",
+     "ref": "0.1"
+    },
+    {
+     "text": "0.2 Maturity labels",
+     "ref": "0.2"
+    },
+    {
+     "text": "0.3 A calibration note on scope",
+     "ref": "0.3"
+    },
+    {
+     "text": "0.4 Section map",
+     "ref": "0.4"
+    },
+    {
+     "text": "0.5 Glossary",
+     "ref": "0.5"
+    }
+   ]
+  },
+  {
+   "num": 1,
+   "slug": "01-core-abstraction-and-system-overview",
+   "subs": [
+    {
+     "text": "1.1 The central design decision: what is the platform's unit of work?",
+     "ref": "1.1"
+    },
+    {
+     "text": "1.2 The pipeline, stated precisely",
+     "ref": "1.2"
+    },
+    {
+     "text": "1.3 Three planes",
+     "ref": "1.3"
+    },
+    {
+     "text": "1.4 Trust boundaries",
+     "ref": "1.4"
+    },
+    {
+     "text": "1.5 Design principles (used to settle later arguments)",
+     "ref": "1.5"
+    }
+   ]
+  },
+  {
+   "num": 2,
+   "slug": "02-control-plane",
+   "subs": [
+    {
+     "text": "2.1 Architecture decision: monolith or services?",
+     "ref": "2.1"
+    },
+    {
+     "text": "2.2 Control plane component responsibilities",
+     "ref": "2.2"
+    },
+    {
+     "text": "2.3 Stateless vs stateful \u2014 the explicit inventory",
+     "ref": "2.3"
+    },
+    {
+     "text": "2.4 Redis: what it is and is not allowed to do",
+     "ref": "2.4"
+    },
+    {
+     "text": "2.5 Idempotency and API-level correctness",
+     "ref": "2.5"
+    }
+   ]
+  },
+  {
+   "num": 3,
+   "slug": "03-compute-plane",
+   "subs": [
+    {
+     "text": "3.1 Worker node anatomy",
+     "ref": "3.1"
+    },
+    {
+     "text": "3.2 Why Rust for the agent",
+     "ref": "3.2"
+    },
+    {
+     "text": "3.3 Agent subsystem responsibilities",
+     "ref": "3.3"
+    },
+    {
+     "text": "Firecracker Manager",
+     "ref": null
+    },
+    {
+     "text": "WASM Runtime Host",
+     "ref": null
+    },
+    {
+     "text": "Image Manager",
+     "ref": null
+    },
+    {
+     "text": "Network Manager",
+     "ref": null
+    },
+    {
+     "text": "Resource Manager",
+     "ref": null
+    },
+    {
+     "text": "Log Collector",
+     "ref": null
+    },
+    {
+     "text": "Metrics Collector",
+     "ref": null
+    },
+    {
+     "text": "Health Checker",
+     "ref": null
+    },
+    {
+     "text": "3.4 The guest side: `vminit`",
+     "ref": "3.4"
+    },
+    {
+     "text": "3.5 Agent \u2194 control plane protocol",
+     "ref": "3.5"
+    },
+    {
+     "text": "3.6 Node admission and overcommit",
+     "ref": "3.6"
+    },
+    {
+     "text": "3.7 Worker sizing",
+     "ref": "3.7"
+    },
+    {
+     "text": "3.8 Worker lifecycle",
+     "ref": "3.8"
+    },
+    {
+     "text": "3.9 Agent restart and VM adoption",
+     "ref": "3.9"
+    }
+   ]
+  },
+  {
+   "num": 4,
+   "slug": "04-deployment-pipeline",
+   "subs": [
+    {
+     "text": "4.1 End-to-end flow",
+     "ref": "4.1"
+    },
+    {
+     "text": "4.2 Step-by-step, with failure handling",
+     "ref": "4.2"
+    },
+    {
+     "text": "Step 1 \u2014 Trigger and admission",
+     "ref": null
+    },
+    {
+     "text": "Step 2 \u2014 Enqueue (transactional outbox)",
+     "ref": null
+    },
+    {
+     "text": "Step 3 \u2014 Build worker claim",
+     "ref": null
+    },
+    {
+     "text": "Step 4 \u2014 Source acquisition",
+     "ref": null
+    },
+    {
+     "text": "Step 5 \u2014 Build plan synthesis",
+     "ref": null
+    },
+    {
+     "text": "Step 6 \u2014 Build execution",
+     "ref": null
+    },
+    {
+     "text": "Step 7 \u2014 Artifact hardening",
+     "ref": null
+    },
+    {
+     "text": "Step 8 \u2014 Release creation",
+     "ref": null
+    },
+    {
+     "text": "Step 9 \u2014 Scheduling and start",
+     "ref": null
+    },
+    {
+     "text": "Step 10 \u2014 Traffic shift",
+     "ref": null
+    },
+    {
+     "text": "4.3 Deployment state machine",
+     "ref": "4.3"
+    },
+    {
+     "text": "4.4 What happens to the old version",
+     "ref": "4.4"
+    },
+    {
+     "text": "4.5 Rollback",
+     "ref": "4.5"
+    },
+    {
+     "text": "4.6 Failure scenario catalogue for the pipeline",
+     "ref": "4.6"
+    }
+   ]
+  },
+  {
+   "num": 5,
+   "slug": "05-build-system",
+   "subs": [
+    {
+     "text": "5.1 Build isolation: the core decision",
+     "ref": "5.1"
+    },
+    {
+     "text": "5.2 Build sandbox layers",
+     "ref": "5.2"
+    },
+    {
+     "text": "5.3 Build cache",
+     "ref": "5.3"
+    },
+    {
+     "text": "5.4 Build secrets",
+     "ref": "5.4"
+    },
+    {
+     "text": "5.5 Network access during build",
+     "ref": "5.5"
+    },
+    {
+     "text": "5.6 Resource limits",
+     "ref": "5.6"
+    },
+    {
+     "text": "5.7 Build logs",
+     "ref": "5.7"
+    },
+    {
+     "text": "5.8 Cancellation",
+     "ref": "5.8"
+    },
+    {
+     "text": "5.9 Retries and reproducibility",
+     "ref": "5.9"
+    },
+    {
+     "text": "5.10 Artifact storage and the registry",
+     "ref": "5.10"
+    },
+    {
+     "text": "5.11 Attack tree: malicious build",
+     "ref": "5.11"
+    }
+   ]
+  },
+  {
+   "num": 6,
+   "slug": "06-runtime-isolation-and-threat-model",
+   "subs": [
+    {
+     "text": "6.1 Threat model",
+     "ref": "6.1"
+    },
+    {
+     "text": "6.2 Defense layers for the Linux (Firecracker) path",
+     "ref": "6.2"
+    },
+    {
+     "text": "6.3 What Firecracker does and does not solve",
+     "ref": "6.3"
+    },
+    {
+     "text": "6.4 Guest configuration",
+     "ref": "6.4"
+    },
+    {
+     "text": "6.5 Network isolation",
+     "ref": "6.5"
+    },
+    {
+     "text": "6.6 CPU side channels and SMT policy",
+     "ref": "6.6"
+    },
+    {
+     "text": "6.7 Resource abuse and DoS containment",
+     "ref": "6.7"
+    },
+    {
+     "text": "6.8 Isolation for the WASM path",
+     "ref": "6.8"
+    }
+   ]
+  },
+  {
+   "num": 7,
+   "slug": "07-firecracker-architecture",
+   "subs": [
+    {
+     "text": "7.1 Component map",
+     "ref": "7.1"
+    },
+    {
+     "text": "7.2 The pieces, explained",
+     "ref": "7.2"
+    },
+    {
+     "text": "7.3 VM lifecycle",
+     "ref": "7.3"
+    },
+    {
+     "text": "7.4 OCI image \u2192 bootable rootfs",
+     "ref": "7.4"
+    },
+    {
+     "text": "7.5 Networking implementation detail",
+     "ref": "7.5"
+    },
+    {
+     "text": "7.6 Firecracker API usage",
+     "ref": "7.6"
+    },
+    {
+     "text": "7.7 Boot budget",
+     "ref": "7.7"
+    },
+    {
+     "text": "7.8 Managing thousands of microVMs per host",
+     "ref": "7.8"
+    },
+    {
+     "text": "7.9 Snapshots",
+     "ref": "7.9"
+    },
+    {
+     "text": "7.10 Snapshot storage economics",
+     "ref": "7.10"
+    },
+    {
+     "text": "7.11 Snapshot correctness hazards \u2014 read this before shipping snapshots",
+     "ref": "7.11"
+    },
+    {
+     "text": "7.12 MVP vs V1 vs Scale for Firecracker",
+     "ref": "7.12"
+    }
+   ]
+  },
+  {
+   "num": 8,
+   "slug": "08-wasm-architecture",
+   "subs": [
+    {
+     "text": "8.1 The positioning question, answered first",
+     "ref": "8.1"
+    },
+    {
+     "text": "8.2 When to use WASM instead of Firecracker",
+     "ref": "8.2"
+    },
+    {
+     "text": "8.3 Architecture",
+     "ref": "8.3"
+    },
+    {
+     "text": "8.4 Key mechanics",
+     "ref": "8.4"
+    },
+    {
+     "text": "8.5 Hardening the WASM host",
+     "ref": "8.5"
+    },
+    {
+     "text": "8.6 Cold start and density expectations",
+     "ref": "8.6"
+    },
+    {
+     "text": "8.7 WASM vs Firecracker vs Containers",
+     "ref": "8.7"
+    }
+   ]
+  },
+  {
+   "num": 9,
+   "slug": "09-universal-runtime-specification",
+   "subs": [
+    {
+     "text": "9.1 The two documents",
+     "ref": "9.1"
+    },
+    {
+     "text": "9.2 Runtime Definition schema",
+     "ref": "9.2"
+    },
+    {
+     "text": "9.3 Project configuration (`helix.yaml`) \u2014 complete schema",
+     "ref": "9.3"
+    },
+    {
+     "text": "9.4 Improvements over the naive version",
+     "ref": "9.4"
+    },
+    {
+     "text": "9.5 Validation",
+     "ref": "9.5"
+    },
+    {
+     "text": "9.6 Resolution order",
+     "ref": "9.6"
+    }
+   ]
+  },
+  {
+   "num": 10,
+   "slug": "10-custom-runtimes",
+   "subs": [
+    {
+     "text": "10.1 The three entry points",
+     "ref": "10.1"
+    },
+    {
+     "text": "10.2 Dockerfile support",
+     "ref": "10.2"
+    },
+    {
+     "text": "10.3 Image requirements",
+     "ref": "10.3"
+    },
+    {
+     "text": "10.4 External registry support",
+     "ref": "10.4"
+    },
+    {
+     "text": "10.5 Base image policy",
+     "ref": "10.5"
+    },
+    {
+     "text": "10.6 Vulnerability scanning policy",
+     "ref": "10.6"
+    },
+    {
+     "text": "10.7 Image signing and admission",
+     "ref": "10.7"
+    },
+    {
+     "text": "10.8 Architecture compatibility",
+     "ref": "10.8"
+    }
+   ]
+  },
+  {
+   "num": 11,
+   "slug": "11-http-routing",
+   "subs": [
+    {
+     "text": "11.1 The request path",
+     "ref": "11.1"
+    },
+    {
+     "text": "11.2 Proxy selection",
+     "ref": "11.2"
+    },
+    {
+     "text": "11.3 Route table and propagation",
+     "ref": "11.3"
+    },
+    {
+     "text": "11.4 The activator (scale-to-zero request path)",
+     "ref": "11.4"
+    },
+    {
+     "text": "11.5 TLS, domains and certificates",
+     "ref": "11.5"
+    },
+    {
+     "text": "11.6 Protocol support",
+     "ref": "11.6"
+    },
+    {
+     "text": "11.7 Timeouts, limits and their interaction",
+     "ref": "11.7"
+    },
+    {
+     "text": "11.8 Load balancing and health",
+     "ref": "11.8"
+    },
+    {
+     "text": "11.9 What happens when the control plane is down",
+     "ref": "11.9"
+    }
+   ]
+  },
+  {
+   "num": 12,
+   "slug": "12-serverless-scheduling",
+   "subs": [
+    {
+     "text": "12.1 What the scheduler decides",
+     "ref": "12.1"
+    },
+    {
+     "text": "12.2 Autoscaling algorithm",
+     "ref": "12.2"
+    },
+    {
+     "text": "12.3 Placement algorithm",
+     "ref": "12.3"
+    },
+    {
+     "text": "12.4 Instance selection for cold start: the decision tree",
+     "ref": "12.4"
+    },
+    {
+     "text": "12.5 Scale-to-zero decision",
+     "ref": "12.5"
+    },
+    {
+     "text": "12.6 Geographic placement",
+     "ref": "12.6"
+    }
+   ]
+  },
+  {
+   "num": 13,
+   "slug": "13-cold-start-optimization",
+   "subs": [
+    {
+     "text": "13.1 The cold-start budget, decomposed",
+     "ref": "13.1"
+    },
+    {
+     "text": "13.2 Strategy 1 \u2014 Warm pools",
+     "ref": "13.2"
+    },
+    {
+     "text": "13.3 Strategy 2 \u2014 Firecracker snapshots (highest value)",
+     "ref": "13.3"
+    },
+    {
+     "text": "13.4 Strategy 3 \u2014 Image and filesystem caching",
+     "ref": "13.4"
+    },
+    {
+     "text": "13.5 Strategy 4 \u2014 Lazy image loading [SCALE]",
+     "ref": "13.5"
+    },
+    {
+     "text": "13.6 Strategy 5 \u2014 Language-specific optimization",
+     "ref": "13.6"
+    },
+    {
+     "text": "13.7 Expected cold-start figures",
+     "ref": "13.7"
+    },
+    {
+     "text": "13.8 Startup probes and the \"is it ready\" contract",
+     "ref": "13.8"
+    }
+   ]
+  },
+  {
+   "num": 14,
+   "slug": "14-storage-architecture",
+   "subs": [
+    {
+     "text": "14.1 The principle: instances are cattle with amnesia",
+     "ref": "14.1"
+    },
+    {
+     "text": "14.2 The storage tiers",
+     "ref": "14.2"
+    },
+    {
+     "text": "14.3 Persistent volumes \u2014 if and how",
+     "ref": "14.3"
+    },
+    {
+     "text": "14.4 Object storage usage",
+     "ref": "14.4"
+    }
+   ]
+  },
+  {
+   "num": 15,
+   "slug": "15-database-schema",
+   "subs": [
+    {
+     "text": "15.1 Conventions",
+     "ref": "15.1"
+    },
+    {
+     "text": "15.2 ER diagram",
+     "ref": "15.2"
+    },
+    {
+     "text": "15.3 DDL",
+     "ref": "15.3"
+    },
+    {
+     "text": "Identity and tenancy",
+     "ref": null
+    },
+    {
+     "text": "Projects, environments, config",
+     "ref": null
+    },
+    {
+     "text": "Runtimes",
+     "ref": null
+    },
+    {
+     "text": "Deployments, builds, images, releases",
+     "ref": null
+    },
+    {
+     "text": "Infrastructure",
+     "ref": null
+    },
+    {
+     "text": "Domains and certificates",
+     "ref": null
+    },
+    {
+     "text": "Git, usage, quotas, audit",
+     "ref": null
+    },
+    {
+     "text": "15.4 Notes on schema decisions",
+     "ref": "15.4"
+    }
+   ]
+  },
+  {
+   "num": 16,
+   "slug": "16-api-design",
+   "subs": [
+    {
+     "text": "16.1 Conventions",
+     "ref": "16.1"
+    },
+    {
+     "text": "16.2 Authentication",
+     "ref": "16.2"
+    },
+    {
+     "text": "16.3 Authorization",
+     "ref": "16.3"
+    },
+    {
+     "text": "16.4 Core endpoints",
+     "ref": "16.4"
+    },
+    {
+     "text": "Projects",
+     "ref": null
+    },
+    {
+     "text": "Deployments",
+     "ref": null
+    },
+    {
+     "text": "Domains",
+     "ref": null
+    },
+    {
+     "text": "Environment variables and secrets",
+     "ref": null
+    },
+    {
+     "text": "Instances, logs, metrics",
+     "ref": null
+    },
+    {
+     "text": "Webhooks (outbound to customers)",
+     "ref": null
+    },
+    {
+     "text": "16.5 Errors",
+     "ref": "16.5"
+    },
+    {
+     "text": "16.6 Rate limiting",
+     "ref": "16.6"
+    },
+    {
+     "text": "16.7 gRPC (internal only)",
+     "ref": "16.7"
+    }
+   ]
+  },
+  {
+   "num": 17,
+   "slug": "17-git-integration-and-preview-deployments",
+   "subs": [
+    {
+     "text": "17.1 Provider integration model",
+     "ref": "17.1"
+    },
+    {
+     "text": "17.2 OAuth and installation flow",
+     "ref": "17.2"
+    },
+    {
+     "text": "17.3 Webhooks",
+     "ref": "17.3"
+    },
+    {
+     "text": "17.4 Deployment triggers",
+     "ref": "17.4"
+    },
+    {
+     "text": "17.5 Commit status and checks",
+     "ref": "17.5"
+    },
+    {
+     "text": "17.6 Preview deployments",
+     "ref": "17.6"
+    }
+   ]
+  },
+  {
+   "num": 18,
+   "slug": "18-multi-tenancy",
+   "subs": [
+    {
+     "text": "18.1 The boundaries",
+     "ref": "18.1"
+    },
+    {
+     "text": "18.2 Data isolation",
+     "ref": "18.2"
+    },
+    {
+     "text": "18.3 Runtime isolation",
+     "ref": "18.3"
+    },
+    {
+     "text": "18.4 Quotas and limits",
+     "ref": "18.4"
+    },
+    {
+     "text": "18.5 Noisy neighbor prevention",
+     "ref": "18.5"
+    },
+    {
+     "text": "18.6 Billing isolation",
+     "ref": "18.6"
+    }
+   ]
+  },
+  {
+   "num": 19,
+   "slug": "19-autoscaling",
+   "subs": [
+    {
+     "text": "19.1 Loop 1 \u2014 application instances",
+     "ref": "19.1"
+    },
+    {
+     "text": "19.2 Loop 2 \u2014 worker fleet",
+     "ref": "19.2"
+    },
+    {
+     "text": "19.3 Loop 3 \u2014 regions",
+     "ref": "19.3"
+    }
+   ]
+  },
+  {
+   "num": 20,
+   "slug": "20-high-availability",
+   "subs": [
+    {
+     "text": "20.1 Target topology",
+     "ref": "20.1"
+    },
+    {
+     "text": "20.2 PostgreSQL",
+     "ref": "20.2"
+    },
+    {
+     "text": "20.3 Failure matrix",
+     "ref": "20.3"
+    },
+    {
+     "text": "20.4 The autonomy principle",
+     "ref": "20.4"
+    },
+    {
+     "text": "20.5 Split brain prevention",
+     "ref": "20.5"
+    },
+    {
+     "text": "20.6 Graceful degradation ladder",
+     "ref": "20.6"
+    },
+    {
+     "text": "20.7 Registry availability",
+     "ref": "20.7"
+    }
+   ]
+  },
+  {
+   "num": 21,
+   "slug": "21-disaster-recovery",
+   "subs": [
+    {
+     "text": "21.1 Objectives",
+     "ref": "21.1"
+    },
+    {
+     "text": "21.2 Backup strategy",
+     "ref": "21.2"
+    },
+    {
+     "text": "21.3 Restore procedures",
+     "ref": "21.3"
+    },
+    {
+     "text": "21.4 DR calendar",
+     "ref": "21.4"
+    }
+   ]
+  },
+  {
+   "num": 22,
+   "slug": "22-observability",
+   "subs": [
+    {
+     "text": "22.1 Stack",
+     "ref": "22.1"
+    },
+    {
+     "text": "22.2 What to measure \u2014 the SLO set",
+     "ref": "22.2"
+    },
+    {
+     "text": "22.3 Metric catalogue",
+     "ref": "22.3"
+    },
+    {
+     "text": "22.4 Logs",
+     "ref": "22.4"
+    },
+    {
+     "text": "22.5 Tracing",
+     "ref": "22.5"
+    },
+    {
+     "text": "22.6 Alerting philosophy",
+     "ref": "22.6"
+    }
+   ]
+  },
+  {
+   "num": 23,
+   "slug": "23-security-architecture",
+   "subs": [
+    {
+     "text": "23.1 Authentication",
+     "ref": "23.1"
+    },
+    {
+     "text": "23.2 Authorization",
+     "ref": "23.2"
+    },
+    {
+     "text": "23.3 API security",
+     "ref": "23.3"
+    },
+    {
+     "text": "23.4 Secrets management",
+     "ref": "23.4"
+    },
+    {
+     "text": "23.5 Encryption",
+     "ref": "23.5"
+    },
+    {
+     "text": "23.6 Key management",
+     "ref": "23.6"
+    },
+    {
+     "text": "23.7 Audit logging",
+     "ref": "23.7"
+    },
+    {
+     "text": "23.8 Supply-chain security",
+     "ref": "23.8"
+    },
+    {
+     "text": "23.9 Security attack tree (platform-wide)",
+     "ref": "23.9"
+    },
+    {
+     "text": "23.10 Compliance posture (forward-looking)",
+     "ref": "23.10"
+    }
+   ]
+  },
+  {
+   "num": 24,
+   "slug": "24-abuse-prevention",
+   "subs": [
+    {
+     "text": "24.1 Layers",
+     "ref": "24.1"
+    },
+    {
+     "text": "24.2 Detection signals",
+     "ref": "24.2"
+    },
+    {
+     "text": "24.3 Controls",
+     "ref": "24.3"
+    },
+    {
+     "text": "24.4 Detecting a compromised platform host",
+     "ref": "24.4"
+    },
+    {
+     "text": "24.5 IP reputation",
+     "ref": "24.5"
+    }
+   ]
+  },
+  {
+   "num": 25,
+   "slug": "25-billing-and-metering",
+   "subs": [
+    {
+     "text": "25.1 What to meter",
+     "ref": "25.1"
+    },
+    {
+     "text": "25.2 Collection without impacting the runtime",
+     "ref": "25.2"
+    },
+    {
+     "text": "25.3 Partial-minute and edge cases",
+     "ref": "25.3"
+    },
+    {
+     "text": "25.4 Billing integration",
+     "ref": "25.4"
+    }
+   ]
+  },
+  {
+   "num": 26,
+   "slug": "26-developer-experience-and-cli",
+   "subs": [
+    {
+     "text": "26.1 Design goals",
+     "ref": "26.1"
+    },
+    {
+     "text": "26.2 Command surface",
+     "ref": "26.2"
+    },
+    {
+     "text": "26.3 CLI architecture",
+     "ref": "26.3"
+    },
+    {
+     "text": "26.4 Other DX surfaces",
+     "ref": "26.4"
+    },
+    {
+     "text": "26.5 Error message quality (a worked example)",
+     "ref": "26.5"
+    }
+   ]
+  },
+  {
+   "num": 27,
+   "slug": "27-deployment-configuration-format",
+   "subs": []
+  },
+  {
+   "num": 28,
+   "slug": "28-internal-services",
+   "subs": [
+    {
+     "text": "28.1 The inventory",
+     "ref": "28.1"
+    },
+    {
+     "text": "28.2 Why each separation exists",
+     "ref": "28.2"
+    },
+    {
+     "text": "28.3 What stays in the monolith and why",
+     "ref": "28.3"
+    }
+   ]
+  },
+  {
+   "num": 29,
+   "slug": "29-repository-structure",
+   "subs": []
+  },
+  {
+   "num": 30,
+   "slug": "30-implementation-roadmap",
+   "subs": [
+    {
+     "text": "30.0 How to read this",
+     "ref": "30.0"
+    },
+    {
+     "text": "Phase 0 \u2014 Foundations and local development (2\u20134 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 1 \u2014 Single-node MVP: git \u2192 build \u2192 OCI \u2192 Firecracker \u2192 HTTP (6\u201310 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 2 \u2014 Multi-tenant, secure, publicly usable by a few people (10\u201316 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 3 \u2014 Multiple workers (6\u20138 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 4 \u2014 Autoscaling, scale-to-zero, cold-start optimization (8\u201312 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 5 \u2014 WASM runtime (6\u201310 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 6 \u2014 Multiple regions (8\u201312 weeks)",
+     "ref": null
+    },
+    {
+     "text": "Phase 7 \u2014 Production hardening (continuous, 12+ weeks of focused effort)",
+     "ref": null
+    },
+    {
+     "text": "30.1 Timeline summary",
+     "ref": "30.1"
+    }
+   ]
+  },
+  {
+   "num": 31,
+   "slug": "31-local-development-environment",
+   "subs": [
+    {
+     "text": "31.1 The Windows question, answered directly",
+     "ref": "31.1"
+    },
+    {
+     "text": "31.2 Dev stack",
+     "ref": "31.2"
+    }
+   ]
+  },
+  {
+   "num": 32,
+   "slug": "32-production-infrastructure-sizing",
+   "subs": [
+    {
+     "text": "32.1 Stated assumptions",
+     "ref": "32.1"
+    },
+    {
+     "text": "32.2 Small production \u2014 10 customers, 100 deployments/day",
+     "ref": "32.2"
+    },
+    {
+     "text": "32.3 Medium production \u2014 1,000 customers, 10,000 deployments/day",
+     "ref": "32.3"
+    },
+    {
+     "text": "32.4 Large production \u2014 100,000 customers, 1,000,000 deployments/day",
+     "ref": "32.4"
+    },
+    {
+     "text": "32.5 Sizing heuristics you can reuse",
+     "ref": "32.5"
+    }
+   ]
+  },
+  {
+   "num": 33,
+   "slug": "33-cost-model",
+   "subs": [
+    {
+     "text": "33.1 Assumptions and caveats",
+     "ref": "33.1"
+    },
+    {
+     "text": "33.2 Development",
+     "ref": "33.2"
+    },
+    {
+     "text": "33.3 Small production (10 customers, 100 deploys/day)",
+     "ref": "33.3"
+    },
+    {
+     "text": "33.4 Medium production (1,000 customers, 10,000 deploys/day)",
+     "ref": "33.4"
+    },
+    {
+     "text": "33.5 Large production (100,000 customers, 1M deploys/day)",
+     "ref": "33.5"
+    },
+    {
+     "text": "33.6 Provider comparison for this workload",
+     "ref": "33.6"
+    },
+    {
+     "text": "33.7 Cost optimization without weakening isolation",
+     "ref": "33.7"
+    }
+   ]
+  },
+  {
+   "num": 34,
+   "slug": "34-technology-decision-matrices",
+   "subs": [
+    {
+     "text": "34.1 Runtime isolation",
+     "ref": "34.1"
+    },
+    {
+     "text": "34.2 Messaging",
+     "ref": "34.2"
+    },
+    {
+     "text": "34.3 Edge proxy",
+     "ref": "34.3"
+    },
+    {
+     "text": "34.4 Implementation language by component",
+     "ref": "34.4"
+    },
+    {
+     "text": "34.5 Other decisions, summarized",
+     "ref": "34.5"
+    }
+   ]
+  },
+  {
+   "num": 35,
+   "slug": "35-sequence-diagrams",
+   "subs": [
+    {
+     "text": "35.1 User deployment (end to end)",
+     "ref": "35.1"
+    },
+    {
+     "text": "35.2 Build (detail, including failure)",
+     "ref": "35.2"
+    },
+    {
+     "text": "35.3 Firecracker VM creation",
+     "ref": "35.3"
+    },
+    {
+     "text": "35.4 HTTP request (warm path)",
+     "ref": "35.4"
+    },
+    {
+     "text": "35.5 Cold start (scale-to-zero activation)",
+     "ref": "35.5"
+    },
+    {
+     "text": "35.6 Warm request with concurrent scale-up",
+     "ref": "35.6"
+    },
+    {
+     "text": "35.7 Scale to zero",
+     "ref": "35.7"
+    },
+    {
+     "text": "35.8 Rollback",
+     "ref": "35.8"
+    },
+    {
+     "text": "35.9 Worker failure",
+     "ref": "35.9"
+    },
+    {
+     "text": "35.10 Deployment failure",
+     "ref": "35.10"
+    },
+    {
+     "text": "35.11 WASM execution",
+     "ref": "35.11"
+    }
+   ]
+  },
+  {
+   "num": 36,
+   "slug": "36-architecture-diagrams",
+   "subs": [
+    {
+     "text": "36.1 Overall architecture",
+     "ref": "36.1"
+    },
+    {
+     "text": "36.2 Control plane internals",
+     "ref": "36.2"
+    },
+    {
+     "text": "36.3 Compute plane",
+     "ref": "36.3"
+    },
+    {
+     "text": "36.4 Build pipeline",
+     "ref": "36.4"
+    },
+    {
+     "text": "36.5 Firecracker architecture",
+     "ref": "36.5"
+    },
+    {
+     "text": "36.6 WASM architecture",
+     "ref": "36.6"
+    },
+    {
+     "text": "36.7 Networking",
+     "ref": "36.7"
+    },
+    {
+     "text": "36.8 Database",
+     "ref": "36.8"
+    },
+    {
+     "text": "36.9 Multi-region",
+     "ref": "36.9"
+    },
+    {
+     "text": "36.10 Security boundaries",
+     "ref": "36.10"
+    }
+   ]
+  },
+  {
+   "num": 37,
+   "slug": "37-failure-scenarios",
+   "subs": [
+    {
+     "text": "37.1 Per-component analysis",
+     "ref": "37.1"
+    },
+    {
+     "text": "Envoy (edge)",
+     "ref": null
+    },
+    {
+     "text": "helix-gateway / activator",
+     "ref": null
+    },
+    {
+     "text": "helix-control",
+     "ref": null
+    },
+    {
+     "text": "Scheduler",
+     "ref": null
+    },
+    {
+     "text": "Worker agent",
+     "ref": null
+    },
+    {
+     "text": "Build worker",
+     "ref": null
+    },
+    {
+     "text": "PostgreSQL",
+     "ref": null
+    },
+    {
+     "text": "NATS",
+     "ref": null
+    },
+    {
+     "text": "Registry",
+     "ref": null
+    },
+    {
+     "text": "Redis",
+     "ref": null
+    },
+    {
+     "text": "37.2 Cross-cutting: can requests be lost?",
+     "ref": "37.2"
+    },
+    {
+     "text": "37.3 Can deployments become inconsistent?",
+     "ref": "37.3"
+    }
+   ]
+  },
+  {
+   "num": 38,
+   "slug": "38-distributed-systems-concerns",
+   "subs": [
+    {
+     "text": "38.1 Idempotency",
+     "ref": "38.1"
+    },
+    {
+     "text": "38.2 Consistency model",
+     "ref": "38.2"
+    },
+    {
+     "text": "38.3 Distributed locks, leases, and fencing",
+     "ref": "38.3"
+    },
+    {
+     "text": "38.4 Retries and backoff",
+     "ref": "38.4"
+    },
+    {
+     "text": "38.5 Dead letter queues",
+     "ref": "38.5"
+    },
+    {
+     "text": "38.6 Delivery semantics",
+     "ref": "38.6"
+    },
+    {
+     "text": "38.7 Other hazards",
+     "ref": "38.7"
+    },
+    {
+     "text": "38.8 Deployment state machine",
+     "ref": "38.8"
+    }
+   ]
+  },
+  {
+   "num": 39,
+   "slug": "39-production-security-review",
+   "subs": [
+    {
+     "text": "39.1 Verdict",
+     "ref": "39.1"
+    },
+    {
+     "text": "39.2 Critical findings",
+     "ref": "39.2"
+    },
+    {
+     "text": "39.3 High-risk findings",
+     "ref": "39.3"
+    },
+    {
+     "text": "39.4 Missing controls",
+     "ref": "39.4"
+    },
+    {
+     "text": "39.5 Dangerous assumptions",
+     "ref": "39.5"
+    },
+    {
+     "text": "39.6 Recommended gates before untrusted signup",
+     "ref": "39.6"
+    }
+   ]
+  },
+  {
+   "num": 40,
+   "slug": "40-final-recommended-architecture",
+   "subs": [
+    {
+     "text": "40.1 The one-paragraph version",
+     "ref": "40.1"
+    },
+    {
+     "text": "40.2 The stack, with every deviation from the brief justified",
+     "ref": "40.2"
+    },
+    {
+     "text": "40.3 Balancing the five constraints",
+     "ref": "40.3"
+    },
+    {
+     "text": "40.4 The five decisions most likely to be regretted, and the counsel",
+     "ref": "40.4"
+    },
+    {
+     "text": "40.5 If you can only build three things well",
+     "ref": "40.5"
+    }
+   ]
+  },
+  {
+   "num": 41,
+   "slug": "41-testing-strategy",
+   "subs": []
+  },
+  {
+   "num": 42,
+   "slug": "42-production-readiness-checklist",
+   "subs": [
+    {
+     "text": "Security",
+     "ref": null
+    },
+    {
+     "text": "Reliability",
+     "ref": null
+    },
+    {
+     "text": "Operations",
+     "ref": null
+    },
+    {
+     "text": "Product and compliance",
+     "ref": null
+    },
+    {
+     "text": "Performance",
+     "ref": null
+    }
+   ]
+  },
+  {
+   "num": 43,
+   "slug": "43-appendix-a-open-questions-to-settle-before-phase-2",
+   "subs": []
+  },
+  {
+   "num": 44,
+   "slug": "44-appendix-b-architecture-decision-records-to-write-fi",
+   "subs": []
+  }
+ ]
+}

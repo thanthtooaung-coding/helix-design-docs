@@ -1,0 +1,48 @@
+    {
+      label: 'Orientation',
+      items: ['00-how-to-read-this-document', '01-core-abstraction-and-system-overview'],
+    },
+    {
+      label: 'The three planes',
+      items: ['02-control-plane', '03-compute-plane'],
+    },
+    {
+      label: 'Build and deploy',
+      items: ['04-deployment-pipeline', '05-build-system'],
+    },
+    {
+      label: 'Isolation and runtimes',
+      items: ['06-runtime-isolation-and-threat-model', '07-firecracker-architecture', '08-wasm-architecture'],
+    },
+    {
+      label: 'The runtime contract',
+      items: ['09-universal-runtime-specification', '10-custom-runtimes'],
+    },
+    {
+      label: 'Traffic and scale',
+      items: ['11-http-routing', '12-serverless-scheduling', '13-cold-start-optimization', '19-autoscaling'],
+    },
+    {
+      label: 'Data and interfaces',
+      items: ['14-storage-architecture', '15-database-schema', '16-api-design', '17-git-integration-and-preview-deployments', '18-multi-tenancy'],
+    },
+    {
+      label: 'Running it',
+      items: ['20-high-availability', '21-disaster-recovery', '22-observability', '23-security-architecture', '24-abuse-prevention', '25-billing-and-metering'],
+    },
+    {
+      label: 'Building it',
+      items: ['26-developer-experience-and-cli', '27-deployment-configuration-format', '28-internal-services', '29-repository-structure', '30-implementation-roadmap', '31-local-development-environment'],
+    },
+    {
+      label: 'Money and choices',
+      items: ['32-production-infrastructure-sizing', '33-cost-model', '34-technology-decision-matrices'],
+    },
+    {
+      label: 'Diagrams and failure',
+      items: ['35-sequence-diagrams', '36-architecture-diagrams', '37-failure-scenarios', '38-distributed-systems-concerns'],
+    },
+    {
+      label: 'Closing',
+      items: ['39-production-security-review', '40-final-recommended-architecture', '41-testing-strategy', '42-production-readiness-checklist', '43-appendix-a-open-questions-to-settle-before-phase-2', '44-appendix-b-architecture-decision-records-to-write-fi'],
+    },

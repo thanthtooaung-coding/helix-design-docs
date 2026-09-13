@@ -1,0 +1,83 @@
+---
+title: Helix Platform Design
+description: Master technical design for a multi-tenant application deployment platform built on OCI images, Firecracker microVMs and WebAssembly.
+template: splash
+hero:
+  tagline: |
+    Developers push source code. The platform builds it, packages it as an OCI image, runs it inside a hardware-virtualized sandbox, exposes it over HTTPS, autoscales it including to zero, and meters it.
+  actions:
+    - text: Start reading
+      link: ./00-how-to-read-this-document/
+      icon: right-arrow
+      variant: primary
+    - text: Final architecture
+      link: ./40-final-recommended-architecture/
+      icon: document
+      variant: minimal
+    - text: Security review
+      link: ./39-production-security-review/
+      icon: warning
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="pipeline-chain">
+  <i>Source</i><u>→</u><i>Build definition</i><u>→</u><i>BuildKit in a microVM</i><u>→</u><i>OCI image</i><u>→</u><i>ReleaseSpec</i><u>→</u><i>Firecracker / Wasmtime</i><u>→</u><i>HTTPS</i>
+</div>
+
+<dl class="hero-facts">
+  <div><dt>Sections</dt><dd>42<small> + 2 appendices</small></dd></div>
+  <div><dt>Diagrams</dt><dd>43<small> mermaid</small></dd></div>
+  <div><dt>Schema</dt><dd>29<small> tables</small></dd></div>
+  <div><dt>Deployables</dt><dd>6<small> not 14</small></dd></div>
+  <div><dt>Boot budget</dt><dd>~90<small> ms platform</small></dd></div>
+  <div><dt>To public beta</dt><dd>~10<small> months solo</small></dd></div>
+</dl>
+
+## What this is
+
+A master technical design document, written to be implemented. Every major decision follows the same
+structure: **problem → candidate solutions → comparison → decision → why → tradeoffs → operational
+implications**. Where a decision is genuinely open, it is marked as such rather than resolved by fiat.
+
+Every component carries a maturity label, because the biggest failure mode for a project of this scope
+is building the <span class="mat mat-scale">SCALE</span> version of everything on day one:
+
+- <span class="mat mat-mvp">MVP</span> — needed to get `git push` → live URL working on one machine.
+- <span class="mat mat-v1">V1</span> — needed before untrusted third-party code runs on shared infrastructure.
+- <span class="mat mat-scale">SCALE</span> — needed beyond roughly 10k tenants or multiple regions.
+
+## Where to start
+
+<CardGrid>
+  <Card title="If you are building it" icon="rocket">
+    [Implementation roadmap](./30-implementation-roadmap/) is the real plan; sections 1–29 are the
+    target the roadmap converges on. Do not attempt them in order.
+  </Card>
+  <Card title="If you are reviewing the security" icon="approve-check">
+    [Production security review](./39-production-security-review/) is written adversarially against
+    the rest of the document, and ends with the gates to clear before untrusted signup.
+  </Card>
+  <Card title="If you want the short version" icon="star">
+    [Final recommended architecture](./40-final-recommended-architecture/) is the whole stack in a
+    paragraph, plus the five decisions most likely to be regretted.
+  </Card>
+  <Card title="If you are setting up a machine" icon="laptop">
+    [Local development environment](./31-local-development-environment/) covers Firecracker from
+    Windows: WSL2, nested virtualization, and the remote worker setup.
+  </Card>
+</CardGrid>
+
+## The core decision
+
+Everything a customer can deploy — a Spring Boot fat jar, a Go binary, a PHP app, a hand-written
+Dockerfile — becomes an **OCI image**. The platform never knows or cares which language produced it.
+Language support becomes *data* (a runtime definition file), not *code*. Adding a new language is one
+YAML file and two container images; it touches no scheduler, no control plane, no core.
+
+Those images run inside **Firecracker microVMs**, because the entire product is "run strangers' code"
+and hardware virtualization is worth its cost. **Wasmtime** is a second, opt-in runtime for workloads
+that need sub-millisecond cold starts and very high density — never an automatic optimization, because
+most languages do not compile to WebAssembly and a platform that silently switches runtimes is one
+nobody can predict.
